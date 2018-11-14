@@ -48,7 +48,13 @@ public class Transaccion {
     }
 
     public Double getCredito() {
-        return Integer.parseInt(credito.replaceAll(",","").replaceAll("\\.",""))/100.0;
+        Double d;
+        try{
+            d = Integer.parseInt(credito.replaceAll(",","").replaceAll("\\.",""))/100.0;
+        }catch (NumberFormatException e){
+            d=-1.0;
+        }
+        return d;
     }
 
     public void setCredito(String credito) {
@@ -56,7 +62,13 @@ public class Transaccion {
     }
 
     public Double getDebito() {
-        return Integer.parseInt(debito.replaceAll(",","").replaceAll("\\.",""))/100.0;
+        Double d;
+        try{
+            d = Integer.parseInt(debito.replaceAll(",","").replaceAll("\\.",""))/100.0;
+        }catch (NumberFormatException e){
+            d=-1.0;
+        }
+        return d;
     }
 
     public void setDebito(String debito) {
@@ -64,7 +76,13 @@ public class Transaccion {
     }
 
     public Double getSaldo() {
-        return Integer.parseInt(saldo.substring(0, saldo.length() - 1).replaceAll(",","").replaceAll("\\.",""))/100.0;
+        Double d;
+        try{
+             d = Integer.parseInt(saldo.substring(0, saldo.length() - 1).replaceAll(",","").replaceAll("\\.",""))/100.0;
+        }catch (NumberFormatException e){
+            d=-1.0;
+        }
+        return d;
     }
 
     public void setSaldo(String saldo) {

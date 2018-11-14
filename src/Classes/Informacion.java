@@ -70,7 +70,9 @@ public class Informacion {
 
     public void setFechaCorte(String fechaCorte) {
         DateFormat sourceFormat = new SimpleDateFormat("dd-MM-yy");
-        try{Date date = sourceFormat.parse(fechaCorte);this.fechaCorte = date;}catch (ParseException pe){
+        try{
+            Date date = sourceFormat.parse(fechaCorte);this.fechaCorte = date;
+        }catch (ParseException pe){
             pe.printStackTrace();
             this.fechaCorte = new Date();
         }
@@ -85,7 +87,7 @@ public class Informacion {
         try{this.saldoTotal = Integer.parseInt(saldoTotal.substring(0, saldoTotal.length() - 2).replaceAll(",","").replaceAll("\\.",""))/100.0;}
         catch (Exception e){
             e.printStackTrace();
-            this.saldoTotal = 0.0;
+            this.saldoTotal = -1.0;
         }
     }
 
@@ -98,7 +100,7 @@ public class Informacion {
             this.saldoCreditoRevolutivo = Integer.parseInt(saldoCreditoRevolutivo.substring(0, saldoCreditoRevolutivo.length() - 1).replaceAll(",", "").replaceAll("\\.", "")) / 100.0;
         }
         catch(Exception e){
-            this.saldoCreditoRevolutivo = 0.0;
+            this.saldoCreditoRevolutivo = -1.0;
         }
     }
 
@@ -111,7 +113,7 @@ public class Informacion {
             this.derechoMarca = Integer.parseInt(derechoMarca.substring(0, derechoMarca.length() - 1).replaceAll(",", "").replaceAll("\\.", "")) / 100.0;
         }
         catch(Exception e){
-            this.derechoMarca = 0.0;}
+            this.derechoMarca = -1.0;}
     }
 
     public Double getSaldo() {
@@ -123,7 +125,7 @@ public class Informacion {
             this.saldo = Integer.parseInt(saldo.substring(0, saldo.length() - 1).replaceAll(",", "").replaceAll("\\.", "")) / 100.0;
         }
         catch(Exception e){
-            this.saldo = 0.0;}
+            this.saldo = -1.0;}
     }
 
     public Double getSaldoCreditoRevolutivo2() {
@@ -135,7 +137,7 @@ public class Informacion {
             this.saldoCreditoRevolutivo2 = Integer.parseInt(saldoCreditoRevolutivo2.substring(0, saldoCreditoRevolutivo2.length() - 1).replaceAll(",", "").replaceAll("\\.", "")) / 100.0;
         }
         catch(Exception e){
-            this.saldoCreditoRevolutivo2 = 0.0;}
+            this.saldoCreditoRevolutivo2 = -1.0;}
     }
 
     public Double getDerechoMarca2() {
@@ -168,7 +170,8 @@ public class Informacion {
 
     public void setDisponibleCreditoRevolutivo(String disponibleCreditoRevolutivo) {
         try {
-            this.disponibleCreditoRevolutivo = Integer.parseInt(disponibleCreditoRevolutivo.substring(1, disponibleCreditoRevolutivo.length() - 1).replaceAll(",", "").replaceAll("\\.", "")) / 100.0;
+            this.disponibleCreditoRevolutivo = Integer.parseInt(disponibleCreditoRevolutivo.replaceAll("\\(","").replaceAll("\\)","").replaceAll(",", "").replaceAll("\\.", "")) / 100.0;
+            System.out.println(this.disponibleCreditoRevolutivo + "Ä    UIIII");
         }
         catch(Exception e){
             this.disponibleCreditoRevolutivo = 0.0;}

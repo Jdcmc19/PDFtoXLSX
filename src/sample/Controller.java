@@ -18,6 +18,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -108,6 +109,7 @@ public class Controller {
             ArrayList<Transaccion> transaccions = new ArrayList<>();
             int cont = 0;
             String saldoTotal = "";
+            int vrb =0;
             Informacion info = new Informacion();
             String nombre = "";
             Boolean banderaSaldo = false;
@@ -117,7 +119,6 @@ public class Controller {
             for(String a : fk){
                 a=a.replaceAll("\\s+",";");
                 String[] fkfk = a.split(";");
-                System.out.println("aaa"+a);
                 if(fkfk.length>2 && (fkfk[1].equals("FACTURA") || fkfk[1].equals("NOTA") || fkfk[1].equals("PAGO"))) {
                     //ystem.out.println(a);
                     String descr = "";
@@ -130,7 +131,7 @@ public class Controller {
                     info.setSaldoTotal(a);
                     System.out.println("se mando este: "+a+" y llego esto: "+info.getSaldoTotal());
                 }
-                else if(cont>3 && fkfk.length>1){
+                else if(cont>3 && fkfk.length>0){
                     if(fkfk[0].equals("SALDO") && !fkfk[1].equals("crédito")){
                         info.setSaldo(fkfk[1]);
                     }else if(fkfk[0].equals("CRÉDITO")){
@@ -152,14 +153,30 @@ public class Controller {
                     }else if(fkfk[0].equals("Nombre")){
                         banderaClave=true;
                     }else if(banderaClave){
-                        banderaClave = false;
-                        banderaNombre = true;
-                        nombre = "";
-                        for(String s : fkfk){
-                            if(cont==0)info.setClaveCliente(s);
-                            else if(cont <3){
+                        if(fkfk.length>=3){
+                            banderaClave = false;
+                            banderaNombre = true;
+                            nombre = "";
+                            int contad =0 ;
+                            for(String s : fkfk){
+                                if(contad==0)info.setClaveCliente(s);
+                                else if(contad <3){
+                                    nombre += s +" ";
+                                }
+                                contad++;
+                            }
+                        }
+                        else if(a.contains("PERFUMERIA")){
+                            banderaClave = false;
+                            banderaNombre = true;
+                            for(String s : fkfk){
                                 nombre += s +" ";
                             }
+
+                        }
+                        else if(fkfk.length>0){
+                            vrb++;
+                            if(vrb==1)info.setClaveCliente(fkfk[0]);
                         }
                     }else if(banderaNombre){
                         banderaNombre = false;
@@ -168,10 +185,11 @@ public class Controller {
                         info.setNombre(nombre);
                     }else if(banderaMoneda){
                         banderaMoneda = false;
-                        if(fkfk.length>1)
+                        if(fkfk.length>0)
                             info.setMoneda(fkfk[0]);
-                        if(fkfk.length>2)
+                        if(fkfk.length>1){
                             info.setFechaCorte(fkfk[1]);
+                        }
                     }
                 }
                 else{
@@ -193,7 +211,11 @@ public class Controller {
                                 alert.close();
                             }
                         });});
+            File f = new File(pathExc);
+            Desktop des = Desktop.getDesktop();
+            des.open(f);
             }catch(Exception e){
+                e.printStackTrace();
                 Platform.runLater(
                         () -> {
                             Alert alert = new Alert(Alert.AlertType.ERROR);
