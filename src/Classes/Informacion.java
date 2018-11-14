@@ -7,19 +7,19 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Informacion {
-    private String claveCliente;
-    private String nombre;
-    private String moneda;
+    private String claveCliente = "";
+    private String nombre = "";
+    private String moneda = "";
     private Date fechaCorte;
-    private Double saldoTotal;
-    private Double saldoCreditoRevolutivo;
-    private Double derechoMarca;
-    private Double saldo;
-    private Double saldoCreditoRevolutivo2;
-    private Double derechoMarca2;
-    private Double total;
-    private Double disponibleCreditoRevolutivo;
-    private String mensaje;
+    private Double saldoTotal = 0.0;
+    private Double saldoCreditoRevolutivo = 0.0;
+    private Double derechoMarca = 0.0;
+    private Double saldo = 0.0;
+    private Double saldoCreditoRevolutivo2 = 0.0;
+    private Double derechoMarca2 = 0.0;
+    private Double total = 0.0;
+    private Double disponibleCreditoRevolutivo = 0.0;
+    private String mensaje="";
 
     public Informacion(String claveCliente, String nombre, String moneda, Date fechaCorte, Double saldoTotal, Double saldoCreditoRevolutivo, Double derechoMarca, Double saldo, Double saldoCreditoRevolutivo2, Double derechoMarca2, Double total, Double disponibleCreditoRevolutivo, String mensaje) {
         this.claveCliente = claveCliente;
